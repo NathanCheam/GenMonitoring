@@ -13,20 +13,20 @@
       <div class="right-links">
         @if (!authService.isLoggedIn()) {
           <button mat-button [routerLink]="['/login']" routerLinkActive="active-link">
-            <mat-icon>login</mat-icon>
+            <mat-icon style="font-size: 1.5vw; width: 1.5vw; height: 3vh">login</mat-icon>
             Connexion
           </button>
           <button mat-button [routerLink]="['/register']" routerLinkActive="active-link">
-            <mat-icon>person_add</mat-icon>
+            <mat-icon style="font-size: 1.5vw; width: 1.5vw; height: 3vh">person_add</mat-icon>
             Inscription
           </button>
         } @else {
           <button mat-button routerLinkActive="mat-accent" aria-label="List icon">
-            <mat-icon>account_circle</mat-icon>
+            <mat-icon style="font-size: 1.5vw; width: 1.5vw; height: 3vh">account_circle</mat-icon>
             Mon compte
           </button>
           <button mat-button (click)="authService.logout()" routerLinkActive="active-link">
-            <mat-icon>logout</mat-icon>
+            <mat-icon style="font-size: 1.5vw; width: 1.5vw; height: 3vh">logout</mat-icon>
             Se déconnecter
           </button>
         }

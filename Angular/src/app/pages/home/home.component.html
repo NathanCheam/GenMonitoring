@@ -1,0 +1,30 @@
+<div id="container-home">
+@if (!authService.isLoggedIn()) {
+  <p>Veuillez vous connecter afin d'avoir recours aux services proposés</p>
+} @else {
+    <h1>Bienvenue, {{ authService.user().name }}</h1>
+    <p>Voici les services que nous vous proposons :</p>
+    <div id="liste">
+      <button mat-button [routerLink]="['/']" routerLinkActive="active-link">
+        <div class="deco-bouton">
+          Service 1
+        </div>
+      </button>
+      <button mat-button [routerLink]="['/']" routerLinkActive="active-link">
+        <div class="deco-bouton">
+          Service 2
+        </div>
+      </button>
+      <button mat-button [routerLink]="['/']" routerLinkActive="active-link">
+        <div class="deco-bouton">
+          Service 3
+        </div>
+      </button>
+      <button mat-button [routerLink]="['/']" routerLinkActive="active-link">
+        <div class="deco-bouton">
+          Service 4
+        </div>
+      </button>
+    </div>
+}
+</div>
