@@ -1,0 +1,40 @@
+<div>
+  <mat-card>
+    <mat-card-title>Inscription</mat-card-title>
+    <mat-card-content>
+      <form (ngSubmit)="register()" [formGroup]="form">
+        <div style="display: flex; gap: 2vw;">
+          <mat-form-field>
+            <input formControlName="nom" matInput placeholder="Nom" type="lastName">
+            @if (nom?.touched && nom?.hasError('required')) {
+              <mat-error>
+                Le nom est obligatoire
+              </mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field>
+            <input formControlName="prenom" matInput placeholder="Prénom" type="firstName">
+            @if (prenom?.touched && prenom?.hasError('required')) {
+              <mat-error>
+                Le prénom est obligatoire
+              </mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <mat-form-field>
+          <input formControlName="password" matInput placeholder="Mot de passe" type="password">
+          @if (password?.touched && password?.hasError('required')) {
+            <mat-error>
+              Le mot de passe est obligatoire
+            </mat-error>
+          }
+        </mat-form-field>
+        <div class="button">
+          <button [disabled]="!form.valid" mat-button type="submit">Création du compte</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

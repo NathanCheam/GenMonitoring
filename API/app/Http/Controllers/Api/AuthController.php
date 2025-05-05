@@ -50,7 +50,15 @@ class AuthController extends BaseController {
             $success['token_type'] = 'Bearer';
             $success['name'] = $user->name;
 
-            return $this->sendResponse($success, 'User registered successfully.');
+            return $this->sendResponse([
+                'user' => [
+                    'id' => $user->id,
+                    'prenom' => explode(' ', $user->name)[1] ?? '',
+                    'nom' => explode(' ', $user->name)[0] ?? '',
+                    'email' => $user->email,
+                ],
+                'token' => $success['token'],
+            ], 'User registered successfully.');
         } catch (\Exception $e) {
             return $this->sendError('Registration failed.', ['error' => $e->getMessage()], 500);
         }

@@ -1,0 +1,68 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #F7F2EB;
+  overflow-x: hidden; /* Important pour éviter les débordements visuels */
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 90vh;
+}
+
+.main-header {
+  display: flex;
+  background-color: #334EAC;
+  position: relative;
+  height: 10vh;
+  align-items: center;
+}
+
+.toolbar {
+  background-color: #334EAC;
+  color: #F7F2EB;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 16px;
+}
+
+.logo-container {
+  flex: 1;
+  text-align: left;
+  /* Ajustement pour éviter que le logo ne soit sous le menu fixe */
+  position: relative;
+  z-index: 1;
+  margin-right: auto;
+}
+
+#logo {
+  font-size: 28px;
+  font-weight: bold;
+  color: #F7F2EB;
+  letter-spacing: 1px;
+  margin-left: 10px;
+}
+
+.right-links {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+button.mat-button, button.mat-icon-button {
+  color: #F7F2EB;
+}
+
+mat-icon{
+  padding-bottom: 2.5px;
+}
+
+.active-link {
+  color: #BAD6EB;
+}
