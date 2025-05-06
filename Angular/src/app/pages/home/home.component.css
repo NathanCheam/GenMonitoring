@@ -17,7 +17,6 @@ button{
   background-color: #6d707e;
   width: 25vw;
   height: 8vh;
-  color: #ffffff;
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
@@ -31,4 +30,5 @@ button:hover {
   border: 0.2vw solid white;
   width: 24vw;
   padding: 2vh 0;
+  color: #ffffff;
 }
