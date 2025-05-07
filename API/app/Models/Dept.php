@@ -22,7 +22,6 @@ class Dept extends Model
 
     public function temps()
     {
-        return $this->hasMany(Temp::class, 'dept_id')
-            ->as('temps');
+        return $this->hasMany(Temp::class, 'dept_id', 'id');
     }
 }

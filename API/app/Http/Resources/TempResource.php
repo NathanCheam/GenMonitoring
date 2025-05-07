@@ -14,6 +14,7 @@ class TempResource extends JsonResource
         return [
             'id' => $this->id,
             'date' => $this->date,
+            'heure' => $this->heure,
             'valeur' => $this->valeur,
             'departement' => new DeptResource($this->whenLoaded('dept')),
         ];

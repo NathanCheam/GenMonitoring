@@ -9,6 +9,13 @@ class Temp extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'date',
+        'heure',
+        'valeur',
+        'idDepartement'
+    ];
+
     function dept() {
         return $this->belongsTo(Dept::class);
     }

@@ -10,6 +10,7 @@ return new class extends Migration {
         Schema::create('temps', function (Blueprint $table) {
             $table->id();
             $table->date('date');
+            $table->time('heure');
             $table->decimal('valeur')->nullable();
             $table->foreignId('dept_id')->constrained('depts')->onDelete('cascade');
             $table->timestamps();

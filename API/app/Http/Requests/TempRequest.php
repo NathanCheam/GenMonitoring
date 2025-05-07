@@ -10,6 +10,7 @@ class TempRequest extends FormRequest
     {
         return [
             'date' => ['required', 'date'],
+            'heure' => ['required', 'date_format:H:i:s'],
             'valeur' => ['nullable', 'numeric'],
         ];
     }

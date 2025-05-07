@@ -17,6 +17,18 @@ class TempSeeder extends Seeder
             '2025-05-04',
             '2025-05-05',
         ];
+        $heures=[
+            '08:00:00',
+            '09:00:00',
+            '10:00:00',
+            '11:00:00',
+            '12:00:00',
+            '13:00:00',
+            '14:00:00',
+            '15:00:00',
+            '16:00:00',
+            '17:00:00',
+        ];
         $idDepts=[
             1,
             2,
@@ -25,12 +37,15 @@ class TempSeeder extends Seeder
             5,
         ];
         foreach($dates as $date) {
-            foreach ($idDepts as $idDept) {
-                Temp::factory()->create([
-                    'date' => $date,
-                    'valeur' => round(mt_rand(-100, 300) / 10, 1),
-                    'dept_id' => $idDept,
-                ]);
+            foreach ($heures as $heure) {
+                foreach ($idDepts as $idDept) {
+                    Temp::factory()->create([
+                        'date' => $date,
+                        'heure' => $heure,
+                        'valeur' => round(mt_rand(100, 300) / 10, 1),
+                        'dept_id' => $idDept,
+                    ]);
+                }
             }
         }
     }

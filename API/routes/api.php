@@ -11,3 +11,8 @@ Route::get('user', [AuthController::class, 'me'])->middleware('auth:sanctum')->n
 Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:sanctum')->name('logout');
 
 Route::resource('depts', DeptController::class)->middleware('auth:sanctum');
+
+Route::get('depts/{dept}/temperatures', [DeptController::class, 'listeTemperatures'])->middleware('auth:sanctum')->name('departement.temperatures.index');
+Route::post('depts/{dept}/temperatures', [DeptController::class, 'storeTemperature'])->middleware('auth:sanctum')->name('departement.temperature.store');
+Route::put('depts/{dept}/temperatures/{temp}', [DeptController::class, 'updateTemperature'])->middleware('auth:sanctum')->name('departement.temperature.update');
+Route::delete('depts/{dept}/temperatures/{temp}', [DeptController::class, 'deleteTemperature'])->middleware('auth:sanctum')->name('departement.temperature.delete');

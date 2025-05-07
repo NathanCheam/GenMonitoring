@@ -14,6 +14,7 @@ class TempFactory extends Factory
     {
         return [
             'date' => Carbon::now(),
+            'heure' => Carbon::now(),
             'valeur' => $this->faker->randomFloat(),
         ];
     }
