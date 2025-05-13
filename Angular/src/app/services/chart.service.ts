@@ -26,7 +26,17 @@ export class ChartService {
         }]
       },
       options: {
-
+        plugins: {
+          title: {
+            display: true,
+            text: graphTitle
+          },
+        },
+        responsive: true,
+        scales: {
+          x: {stacked: true,},
+          y: {stacked: true,},
+        }
       }
     });
   }

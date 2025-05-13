@@ -1,0 +1,22 @@
+<ng-container>
+  <h2>Représentation graphique des températures</h2>
+
+  <div>
+    <button mat-button (click)="generer_graphe()">Générer le graphe</button>
+    <mat-form-field>
+      <mat-label>Choisissez le type de graphe</mat-label>
+      <mat-select [(ngModel)]="selectionne">
+        <mat-option value="line">Avec des courbes</mat-option>
+        <mat-option value="bar">Avec des bâtons</mat-option>
+        <mat-option value="doughnut">Doughnut</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div id="graphe">
+    <canvas id="line-chart"></canvas>
+    <canvas id="bar-chart"></canvas>
+    <canvas id="doughnut-chart"></canvas>
+  </div>
+
+</ng-container>

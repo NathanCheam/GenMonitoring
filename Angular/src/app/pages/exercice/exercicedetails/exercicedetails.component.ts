@@ -1,14 +1,14 @@
 import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
-import {ChartService} from '../../services/chart.service';
-import {MatButton} from '@angular/material/button';
+import {ChartService} from '../../../services/chart.service';
 import {FormsModule} from '@angular/forms';
 import {Chart, ChartType, registerables} from 'chart.js';
+Chart.register(...registerables);
+import {ActivatedRoute} from '@angular/router';
+import {MatButton} from '@angular/material/button';
 import {MatFormField} from '@angular/material/form-field';
 import {MatLabel} from '@angular/material/input';
 import {MatOption} from '@angular/material/core';
 import {MatSelect} from '@angular/material/select';
-import {Router} from '@angular/router';
-Chart.register(...registerables);
 
 interface DepartementEx {
   id: number;
@@ -28,21 +28,25 @@ interface TemperatureEx {
   idDepartement: number;
 }
 
+interface TemperatureEx2 {
+  heure: string;
+  valeur: number;
+}
+
 @Component({
-  selector: 'app-exercice',
+  selector: 'app-exercicedetails',
   imports: [
-    MatButton,
     FormsModule,
+    MatButton,
     MatFormField,
     MatLabel,
     MatOption,
-    MatSelect
+    MatSelect,
   ],
-  templateUrl: './exercice.component.html',
-  styleUrl: './exercice.component.css'
+  templateUrl: './exercicedetails.component.html',
+  styleUrl: './exercicedetails.component.css'
 })
-export class ExerciceComponent {
-
+export class ExercicedetailsComponent implements OnInit {
   private chartInstance: Chart | null = null;
 
   departement1: DepartementEx = {
@@ -188,18 +192,26 @@ export class ExerciceComponent {
     }
   }
 
-  date: string = '2023-10-01';
-
   types: ChartType[] = ['line', 'bar', 'doughnut'];
 
   selectionne: ChartType = 'line';
 
-  constructor(private chart: ChartService, private router: Router) {
+  departementNom: string = '';
+
+  date: string = '';
+
+  constructor(private chart: ChartService, private activatedRoute: ActivatedRoute) {
   }
 
-  generer_graphe() {
-    const dateSelectionnee = new Date(this.date);
-    const dateFormatee = dateSelectionnee.toISOString().split('T')[0];
+  ngOnInit(): void {
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.departementNom = params['nom'] || '';
+      this.date = params['date'] || '';
+    });
+    this.generer_graphe(/*this.departementNom, this.date*/);
+  }
+
+  generer_graphe(/*departementDonnee: String, dateDonnee: String*/) {
 
     const departements = [
       this.departement1,
@@ -207,83 +219,84 @@ export class ExerciceComponent {
       this.departement3,
       this.departement4,
       this.departement5
-    ].filter(dept => dept.coche);
+    ];
 
-    const donnees = departements.map(dept => {
-      const temperatures = [];
-      if (dept.temperature1 && this.formatDate(dept.temperature1.date) === dateFormatee) {
-        temperatures.push(dept.temperature1.valeur);
-      }
-      if (dept.temperature2 && this.formatDate(dept.temperature2.date) === dateFormatee) {
-        temperatures.push(dept.temperature2.valeur);
-      }
-      if (dept.temperature3 && this.formatDate(dept.temperature3.date) === dateFormatee) {
-        temperatures.push(dept.temperature3.valeur);
-      }
-      if (dept.temperature4 && this.formatDate(dept.temperature4.date) === dateFormatee) {
-        temperatures.push(dept.temperature4.valeur);
-      }
+    const departement = departements.find(dept => dept.nom === this.departementNom);
 
-      const moyenne = temperatures.length > 0
-        ? temperatures.reduce((sum, temp) => sum + temp, 0) / temperatures.length
-        : 0;
+    if (!departement) {
+      return;
+    }
 
-      return {
-        nom: dept.nom,
-        moyenne: moyenne
-      };
-    });
+    const temperatures: TemperatureEx2[] = [];
 
-    this.creerGraphique(donnees, this.selectionne);
+    if (departement.temperature1 && this.formatDate(departement.temperature1.date) === this.date) {
+      temperatures.push({
+        heure: departement.temperature1.heure,
+        valeur: departement.temperature1.valeur
+      });
+    }
+
+    if (departement.temperature2 && this.formatDate(departement.temperature2.date) === this.date) {
+      temperatures.push({
+        heure: departement.temperature2.heure,
+        valeur: departement.temperature2.valeur
+      });
+    }
+
+    if (departement.temperature3 && this.formatDate(departement.temperature3.date) === this.date) {
+      temperatures.push({
+        heure: departement.temperature3.heure,
+        valeur: departement.temperature3.valeur
+      });
+    }
+
+    if (departement.temperature4 && this.formatDate(departement.temperature4.date) === this.date) {
+      temperatures.push({
+        heure: departement.temperature4.heure,
+        valeur: departement.temperature4.valeur
+      });
+    }
+
+    this.creerGraphique(temperatures, this.selectionne);
   }
 
   private formatDate(date: Date): string {
     return new Date(date).toISOString().split('T')[0];
   }
 
-  private creerGraphique(donnees: any[], typeGraphe: ChartType) {
-    const ctx = document.getElementById(`${typeGraphe}-chart`) as HTMLCanvasElement;
+
+  private creerGraphique(temperatures: TemperatureEx2[], typeGraphe: ChartType) {
+    const ctx = document.getElementById(`${this.selectionne}-chart`) as HTMLCanvasElement;
 
     if (this.chartInstance) {
       this.chartInstance.destroy();
     }
 
     this.chartInstance = new Chart(ctx, {
-      type: typeGraphe,
+      type: this.selectionne,
       data: {
-        labels: donnees.map(d => d.nom),
+        labels: temperatures.map(t => t.heure),
         datasets: [{
-          label: `Températures moyennes du ${this.date}`,
-          data: donnees.map(d => d.moyenne),
+          label: `Températures pour ${this.departementNom} le ${this.date}`,
+          data: temperatures.map(t => t.valeur),
           backgroundColor: 'rgba(141,145,166,0.6)',
           borderColor: 'rgb(106,108,119)',
           borderWidth: 2,
         }]
       },
       options: {
-        onClick: (event, elements) => {
-          if (elements.length > 0) {
-            const index = elements[0].index;
-            const departementNom = donnees[index].nom;
-            this.router.navigate(['/exercicedetails'], {
-              queryParams: {
-                nom: departementNom,
-                date: this.date
-              }
-            });
-          }
-        },
+        responsive: true,
         plugins: {
           tooltip: {
             callbacks: {
               title: (tooltipItems) => {
-                return `Département: ${tooltipItems[0].label}`;
+                return `Heure: ${tooltipItems[0].label}`;
               },
               label: (tooltipItem) => {
-                return `Température moyenne: ${tooltipItem.parsed.y.toFixed(1)} degrés`;
+                return `Température: ${tooltipItem.parsed.y} degrés`;
               },
               afterLabel: () => {
-                return `Relevé le: ${this.date}`;
+                return `Département: ${this.departementNom}`;
               }
             },
           }
@@ -294,6 +307,12 @@ export class ExerciceComponent {
             title: {
               display: true,
               text: 'Température (en degré)'
+            }
+          },
+          x: {
+            title: {
+              display: true,
+              text: 'Heure'
             }
           }
         }
