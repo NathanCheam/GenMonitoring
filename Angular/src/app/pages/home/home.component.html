@@ -1,18 +1,15 @@
 <div id="container-home">
-@if (!authService.isLoggedIn()) {
-  <p>Veuillez vous connecter afin d'avoir recours aux services proposés</p>
-} @else {
-    <h1>Bienvenue, {{ authService.user().name }}</h1>
+    <h1>Bienvenue</h1>
     <p>Voici les services que nous vous proposons :</p>
     <div id="liste">
       <button mat-button [routerLink]="['/exercice']" routerLinkActive="active-link">
         <div class="deco-bouton">
-          Monitoring des intercos
+          Première démonstration de Chart.js
         </div>
       </button>
-      <button mat-button [routerLink]="['/']" routerLinkActive="active-link">
+      <button mat-button [routerLink]="['/departementsT']" routerLinkActive="active-link">
         <div class="deco-bouton">
-          Service 2
+          Monitoring des départements d'Olivier
         </div>
       </button>
       <button mat-button [routerLink]="['/']" routerLinkActive="active-link">
@@ -26,5 +23,4 @@
         </div>
       </button>
     </div>
-}
 </div>

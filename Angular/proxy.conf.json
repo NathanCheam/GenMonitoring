@@ -1,0 +1,8 @@
+{
+  "/api": {
+    "target": "https://genversionningrecette.pasdecalais.fr",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}

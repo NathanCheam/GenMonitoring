@@ -1,4 +1,5 @@
 export type Departement = {
-  id: number;
-  nom: string;
+  metrique: string;
+  datetime: string;
+  valeur: number;
 }

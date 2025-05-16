@@ -14,7 +14,6 @@ import { AuthService } from './services/auth.service'; // Chemin vérifié
     MatToolbar,
     MatButton,
     RouterLink,
-    MatIcon,
     RouterLinkActive
   ],
   templateUrl: './app.component.html',
