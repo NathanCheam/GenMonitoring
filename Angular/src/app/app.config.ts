@@ -2,7 +2,7 @@ import {ApplicationConfig, importProvidersFrom, provideZoneChangeDetection} from
 import {provideRouter} from '@angular/router';
 
 import {routes} from './app.routes';
-import {provideHttpClient, withInterceptors} from "@angular/common/http";
+import {provideHttpClient} from "@angular/common/http";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 
 export const appConfig: ApplicationConfig = {
