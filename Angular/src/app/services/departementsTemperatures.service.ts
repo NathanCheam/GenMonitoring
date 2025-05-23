@@ -1,5 +1,5 @@
 import {inject, Injectable} from '@angular/core';
-import {Departement} from '../models/departement';
+import {Departement} from '../models/departements/departement';
 import {firstValueFrom, Observable} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from "../../environments/environment";

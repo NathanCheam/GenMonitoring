@@ -1,15 +1,16 @@
-body {
+html, body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
   background-color: #F7F2EB;
-  overflow-x: hidden; /* Important pour éviter les débordements visuels */
+  overflow: hidden; /* Désactive le défilement global */
+  height: 100%; /* S'assure que body prend toute la hauteur */
 }
 
 .container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  min-height: 86vh;
+  height: 86vh;
+  overflow: hidden; /* Empêche le conteneur principal de défiler */
 }
 
 .main-header {
