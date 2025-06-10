@@ -8,7 +8,6 @@ export class DataSourceAsyncro extends DataSource<Departement> {
 
     constructor(private departementsService: DepartementsTemperaturesService) {
         super();
-        this.setData();
     }
 
 
