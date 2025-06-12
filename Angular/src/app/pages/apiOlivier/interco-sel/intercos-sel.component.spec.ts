@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { IntercosComponent } from './intercos.component';
+import { IntercosSelComponent } from './intercos-sel.component';
 
-describe('IntercosComponent', () => {
-  let component: IntercosComponent;
-  let fixture: ComponentFixture<IntercosComponent>;
+describe('IntercoSelComponent', () => {
+  let component: IntercosSelComponent;
+  let fixture: ComponentFixture<IntercosSelComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [IntercosComponent]
+      imports: [IntercosSelComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(IntercosComponent);
+    fixture = TestBed.createComponent(IntercosSelComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

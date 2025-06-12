@@ -1,0 +1,63 @@
+<ng-container>
+    @if (dataSource) {
+        <div id="onglet">
+            <div class="bouton actif">
+                La liste
+            </div>
+            <!--<div class="bouton" [class.actif]="ongletActif === 'graphiques'" (click)="changerOnglet('graphiques'); generer_grapheO()">
+                Les graphiques
+            </div>-->
+        </div>
+
+        <h2>La liste des intercos</h2>
+        <div id="search">
+            <input type="text" placeholder="Rechercher un interco" name="search" [(ngModel)]="searchTerm">
+            <button type="button" (click)="filtrerIntercos()">
+                <i class="fa fa-search"></i>
+            </button>
+        </div>
+        <!-- [hidden] conserve les éléments mais les masque visuellement quand je change de section-->
+        <section>
+            <div id="liste">
+                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+                    <ng-container matColumnDef="nom">
+                        <th mat-header-cell *matHeaderCellDef>
+                            <span style="cursor: pointer;" (click)="trierNom()">Nom de l'interco</span>
+                            @switch (sortState) {
+                                @case ('nom_asc') {
+                                    <mat-icon>arrow_drop_downward</mat-icon>
+                                }
+                                @case ('nom_desc') {
+                                    <mat-icon>arrow_drop_upward</mat-icon>
+                                }
+                            }
+                        </th>
+                        <td mat-cell *matCellDef="let element" style="cursor: pointer;" (click)="obtenir_donnees(element.url, element.nom)"> {{ element.nom }}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="statut_recent">
+                        <th mat-header-cell *matHeaderCellDef>
+                            <span>Statut du service actuellement</span>
+                        </th>
+                        <td mat-cell *matCellDef="let element" style="cursor: pointer;" (click)="obtenir_donnees(element.url, element.nom)">
+                            @if(getStatusFromLocalStorage(element.url) === 'Disponible') {
+                                <span style="color: green">
+                                    {{ getStatusFromLocalStorage(element.url) }}
+                                </span>
+                            } @else {
+                                <span style="color: red">
+                                    {{ getStatusFromLocalStorage(element.url) }}
+                                </span>
+                            }
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+            </div>
+        </section>
+    }
+
+</ng-container>
